@@ -1,0 +1,42 @@
+# freecolorconvert.app
+
+> Free online color converter supporting HEX, RGB, HSL, HSV/HSB, and CMYK formats.
+
+## About
+
+freecolorconvert.app is a free, client-side color conversion tool. All processing happens in the browser — no data is sent to any server.
+
+## Features
+
+- Bidirectional conversion between HEX, RGB, HSL, HSV/HSB, and CMYK
+- CSS output in rgb(), hsl(), or hex format
+- Native browser color picker
+- Color harmonies: Complementary, Analogous, Triadic, Split-Complementary, Tetradic
+- WCAG 2.1 contrast ratio checker with AA/AAA ratings for normal and large text
+- Nearest CSS named color detection (148 colors)
+- Recent color history (last 10, stored in localStorage)
+- Auto-detect pasted formats: hex, rgb(), hsl(), named CSS colors
+- URL hash support for sharing colors (e.g. freecolorconvert.app/#C49A2A)
+- Dark mode with localStorage persistence
+- Offline support via service worker
+- Fully responsive mobile layout
+
+## Supported Color Formats
+
+- **HEX**: #C49A2A (3 or 6 digit)
+- **RGB**: R 0-255, G 0-255, B 0-255
+- **HSL**: H 0-360°, S 0-100%, L 0-100%
+- **HSV/HSB**: H 0-360°, S 0-100%, V 0-100%
+- **CMYK**: C 0-100%, M 0-100%, Y 0-100%, K 0-100%
+
+## Conversion Formulas
+
+HEX ↔ RGB: Direct hexadecimal to decimal conversion.
+RGB → HSL: Normalize to 0-1, compute max/min, derive H from dominant channel, S from delta/sum, L from midpoint.
+RGB → HSV: Same hue calculation, V = max, S = delta/max.
+RGB → CMYK: K = 1 - max(R',G',B'), then C/M/Y from (1-channel-K)/(1-K).
+WCAG Luminance: L = 0.2126·R' + 0.7152·G' + 0.0722·B' with gamma 2.2. Ratio = (L1+0.05)/(L2+0.05).
+
+## URL
+
+https://freecolorconvert.app/

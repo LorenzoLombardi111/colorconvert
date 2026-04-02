@@ -3,14 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Free Color Converter — HEX, RGB, HSL, HSV, CMYK | freecolorconvert.app</title>
-<meta name="description" content="Convert colors between HEX, RGB, HSL, HSV/HSB, and CMYK instantly. Free, fast, private — all processing happens in your browser.">
-<meta property="og:title" content="freecolorconvert.app — Free Color Converter">
-<meta property="og:description" content="Convert colors between HEX, RGB, HSL, HSV, CMYK instantly.">
+<title>Free Color Converter — HEX to RGB, HSL, CMYK Online | freecolorconvert.app</title>
+<meta name="description" content="Convert colors between HEX, RGB, HSL, HSV, and CMYK instantly. Free online tool with color harmonies and WCAG contrast checker.">
+<link rel="canonical" href="https://freecolorconvert.app/">
+<meta property="og:title" content="Free Color Converter — HEX to RGB, HSL, CMYK Online">
+<meta property="og:description" content="Convert colors between HEX, RGB, HSL, HSV, and CMYK instantly. Free online tool with color harmonies and WCAG contrast checker.">
 <meta property="og:image" content="https://freecolorconvert.app/og-image.svg">
-<meta property="og:url" content="https://freecolorconvert.app">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://freecolorconvert.app/">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="freecolorconvert.app">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Color Converter — HEX to RGB, HSL, CMYK Online">
+<meta name="twitter:description" content="Convert colors between HEX, RGB, HSL, HSV, and CMYK instantly. Free online tool with color harmonies and WCAG contrast checker.">
+<meta name="twitter:image" content="https://freecolorconvert.app/og-image.svg">
 <link rel="manifest" href="/manifest.json">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "name": "freecolorconvert.app",
+      "url": "https://freecolorconvert.app/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "Free online color converter supporting HEX, RGB, HSL, HSV, and CMYK with color harmonies and WCAG contrast checking."
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is freecolorconvert.app free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, freecolorconvert.app is completely free with no sign-up, no ads, and no usage limits. All color conversions run entirely in your browser."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I convert a hex color to RGB?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Type or paste your hex code (e.g. #C49A2A) into the HEX field. The RGB values update instantly. You can also paste rgb(), hsl(), or named CSS colors and they will be auto-detected."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is HSL vs HSV?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "HSL (Hue, Saturation, Lightness) and HSV (Hue, Saturation, Value) are both cylindrical color models. HSL defines lightness as a midpoint between black and white, while HSV defines value as the brightness of the color. HSL is used in CSS; HSV is common in design tools like Photoshop."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it check WCAG contrast?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. The built-in contrast checker calculates the WCAG 2.1 contrast ratio between any two colors and shows pass/fail ratings for AA and AAA compliance at both normal and large text sizes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I paste any color format?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Paste hex codes (#C49A2A), RGB values (rgb(196, 154, 42)), HSL values (hsl(44, 65%, 47%)), or CSS named colors (goldenrod) into the HEX field. The format is auto-detected and all fields update."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does it work offline?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. freecolorconvert.app uses a service worker to cache all assets. After your first visit, the app works fully offline with no internet connection required."
+          }
+        }
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://freecolorconvert.app/"
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
@@ -130,6 +223,27 @@ font-family:'DM Sans',sans-serif;z-index:10}
   .header{padding:0 16px}
   .status-bar{padding:0 16px;font-size:10px}
 }
+
+/* SEO content */
+.seo-content{max-width:700px;margin:0 auto;padding:48px 24px 32px}
+.seo-content h1{font-family:'Lora',serif;font-size:28px;font-weight:500;color:var(--text);margin-bottom:32px;line-height:1.3}
+.seo-content h2{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:600;color:var(--text);margin:32px 0 12px;line-height:1.4}
+.seo-content p{font-family:'Lora',serif;font-size:15px;line-height:1.7;color:var(--muted);margin-bottom:16px}
+.seo-content .faq{margin-top:32px}
+.seo-content .faq-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:var(--muted);
+text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px}
+.seo-content details{border:1px solid var(--border);border-radius:var(--radius-card);margin-bottom:8px;
+background:var(--surface);transition:all .15s ease}
+.seo-content details[open]{background:var(--bg)}
+.seo-content summary{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;padding:12px 16px;
+cursor:pointer;color:var(--text);list-style:none}
+.seo-content summary::-webkit-details-marker{display:none}
+.seo-content summary::before{content:'+ ';color:var(--accent);font-weight:600}
+.seo-content details[open] summary::before{content:'− '}
+.seo-content details p{padding:0 16px 12px;margin:0;font-size:14px}
+.seo-footer{max-width:700px;margin:0 auto;padding:32px 24px;border-top:1px solid var(--border);
+display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+font-family:'DM Sans',sans-serif;font-size:12px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -252,6 +366,66 @@ font-family:'DM Sans',sans-serif;z-index:10}
 <footer class="status-bar">
   <span id="statusLeft">HEX: #C49A2A · RGB: 196, 154, 42</span>
   <span>All processing happens in your browser</span>
+</footer>
+
+<div class="seo-content">
+
+<h1>Free Color Converter — HEX, RGB, HSL, HSV, CMYK Online</h1>
+
+<h2>What color formats does freecolorconvert.app support?</h2>
+<p>freecolorconvert.app supports six major color formats used in web design, graphic design, and print production. Convert between HEX (hexadecimal color codes like #C49A2A), RGB (Red, Green, Blue values from 0-255), HSL (Hue, Saturation, Lightness), HSV/HSB (Hue, Saturation, Value/Brightness), and CMYK (Cyan, Magenta, Yellow, Key/Black for print). The tool also generates CSS-ready output in rgb(), hsl(), or hex format. Every conversion is bidirectional and instant — change any field and all other formats update in real time. You can also paste any color format into the HEX field and it will be auto-detected and parsed, including CSS named colors like "goldenrod" or "rebeccapurple".</p>
+
+<h2>How do I convert HEX to RGB?</h2>
+<p>Converting HEX to RGB is simple: type or paste your hex color code into the HEX field (with or without the # prefix) and the RGB values appear instantly. A hex color code like #C49A2A represents three pairs of hexadecimal digits — C4 for red (196), 9A for green (154), and 2A for blue (42). Each pair converts to a decimal value between 0 and 255. freecolorconvert.app handles this conversion automatically along with all other formats. The tool also supports 3-digit shorthand hex codes (e.g., #F0A expands to #FF00AA). Copy any value with one click using the clipboard button next to each field, ready to paste into your CSS, design tool, or documentation.</p>
+
+<h2>What are color harmonies and how do I use them?</h2>
+<p>Color harmonies are combinations of colors that look visually pleasing together based on their positions on the color wheel. freecolorconvert.app calculates five harmony types from any selected color: Complementary (opposite on the wheel, +180°), Analogous (adjacent colors, ±30°), Triadic (three evenly spaced colors, 120° apart), Split-Complementary (two colors adjacent to the complement, +150° and +210°), and Tetradic (four colors forming a rectangle, 90° apart). Click any harmony swatch to load that color into the converter. These harmonies help designers build cohesive color palettes for websites, brand identities, and UI design without guessing which colors work together.</p>
+
+<h2>What is the WCAG contrast checker?</h2>
+<p>The WCAG contrast checker measures the contrast ratio between two colors to ensure text readability for all users, including those with visual impairments. The Web Content Accessibility Guidelines (WCAG 2.1) define minimum contrast ratios: AA requires 4.5:1 for normal text and 3:1 for large text, while AAA requires 7:1 for normal text and 4.5:1 for large text. freecolorconvert.app calculates the relative luminance of your foreground and background colors and displays the ratio with pass/fail indicators for each WCAG level. Use the swap button to flip foreground and background, or click the background swatch to pick a different color. Meeting these standards is essential for accessible web design.</p>
+
+<h2>Why use freecolorconvert.app instead of Google's color picker?</h2>
+<p>freecolorconvert.app offers several advantages over basic color pickers. It supports CMYK for print workflows, which most browser-based tools omit. It includes color harmonies for building palettes, a WCAG contrast checker for accessibility testing, and recent color history that persists across sessions. The tool auto-detects pasted color formats — paste rgb(196, 154, 42), hsl(44, 65%, 47%), or "goldenrod" and it just works. URL hash support means you can share colors by sharing a link. Everything runs client-side with no server calls, making it fast and private. It also works offline after your first visit thanks to service worker caching, and it's completely free with no ads or sign-up required.</p>
+
+<div class="faq">
+<div class="faq-label">Frequently Asked Questions</div>
+
+<details>
+<summary>Is freecolorconvert.app free?</summary>
+<p>Yes, freecolorconvert.app is completely free with no sign-up, no ads, and no usage limits. All color conversions run entirely in your browser — nothing is sent to a server. The tool is open and works on any device with a modern web browser.</p>
+</details>
+
+<details>
+<summary>How do I convert a hex color to RGB?</summary>
+<p>Type or paste your hex code (e.g. #C49A2A) into the HEX field. The RGB values update instantly in the RGB row. You can also paste rgb(), hsl(), or named CSS colors and they will be auto-detected and converted to all formats.</p>
+</details>
+
+<details>
+<summary>What is HSL vs HSV?</summary>
+<p>HSL (Hue, Saturation, Lightness) and HSV (Hue, Saturation, Value) are both cylindrical color models. HSL defines lightness as a midpoint between black and white, making it intuitive for CSS. HSV defines value as the brightness of the color, matching how tools like Photoshop and Figma represent color. Both share the same hue wheel (0-360°).</p>
+</details>
+
+<details>
+<summary>Does it check WCAG contrast?</summary>
+<p>Yes. The built-in contrast checker calculates the WCAG 2.1 contrast ratio between any two colors and shows pass/fail ratings for AA and AAA compliance at both normal and large text sizes. This helps ensure your color combinations meet accessibility standards.</p>
+</details>
+
+<details>
+<summary>Can I paste any color format?</summary>
+<p>Yes. Paste hex codes (#C49A2A), RGB values (rgb(196, 154, 42)), HSL values (hsl(44, 65%, 47%)), or CSS named colors (goldenrod) into the HEX field. The format is auto-detected and all fields update instantly.</p>
+</details>
+
+<details>
+<summary>Does it work offline?</summary>
+<p>Yes. freecolorconvert.app uses a service worker to cache all assets. After your first visit, the app works fully offline with no internet connection required. All conversions happen in JavaScript on your device.</p>
+</details>
+
+</div>
+</div>
+
+<footer class="seo-footer">
+<span>&copy; freecolorconvert.app</span>
+<div class="more-tools-placeholder"></div>
 </footer>
 
 <div class="badge">by <a href="https://freesuite.app" target="_blank" rel="noopener">freesuite.app</a></div>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#faf9f6"/>
+  <text x="600" y="270" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="52" font-weight="600" fill="#C49A2A">freecolorconvert.app</text>
+  <text x="600" y="340" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="24" font-weight="400" fill="#7a7668">HEX · RGB · HSL · HSV · CMYK — Free Color Converter</text>
+  <rect x="440" y="400" width="50" height="50" rx="8" fill="#C49A2A"/>
+  <rect x="500" y="400" width="50" height="50" rx="8" fill="#2AC4C4"/>
+  <rect x="560" y="400" width="50" height="50" rx="8" fill="#C42A2A"/>
+  <rect x="620" y="400" width="50" height="50" rx="8" fill="#2AC42A"/>
+  <rect x="680" y="400" width="50" height="50" rx="8" fill="#7A2AC4"/>
+</svg>

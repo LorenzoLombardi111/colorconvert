@@ -1,0 +1,10 @@
+{
+  "name": "freecolorconvert.app",
+  "short_name": "Color Convert",
+  "description": "HEX, RGB, HSL, HSV, CMYK — Free Color Converter",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf9f6",
+  "theme_color": "#faf9f6",
+  "icons": []
+}

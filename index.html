@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Color Converter — HEX, RGB, HSL, HSV, CMYK | freecolorconvert.app</title>
+<meta name="description" content="Convert colors between HEX, RGB, HSL, HSV/HSB, and CMYK instantly. Free, fast, private — all processing happens in your browser.">
+<meta property="og:title" content="freecolorconvert.app — Free Color Converter">
+<meta property="og:description" content="Convert colors between HEX, RGB, HSL, HSV, CMYK instantly.">
+<meta property="og:image" content="https://freecolorconvert.app/og-image.svg">
+<meta property="og:url" content="https://freecolorconvert.app">
+<meta property="og:type" content="website">
+<link rel="manifest" href="/manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+--bg:#faf9f6;--surface:#f4f2ee;--border:#e8e4dd;--text:#1a1917;--muted:#7a7668;
+--accent:#C49A2A;--radius-input:6px;--radius-btn:8px;--radius-card:10px;
+}
+[data-theme="dark"]{
+--bg:#141412;--surface:#1e1c1a;--border:#2e2b27;--text:#f0ede8;--muted:#8a8578;
+--accent:#D4A835;
+}
+html{height:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);
+display:flex;flex-direction:column;min-height:100vh;transition:background .15s ease,color .15s ease}
+a{color:var(--accent);text-decoration:none}
+
+/* Header */
+.header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--border);flex-shrink:0}
+.header-brand{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;color:var(--accent)}
+.theme-toggle{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-btn);
+width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+font-size:16px;color:var(--text);transition:all .15s ease}
+.theme-toggle:hover{border-color:var(--accent)}
+
+/* Main */
+.main{flex:1;overflow-y:auto;padding:32px 24px}
+.container{max-width:700px;margin:0 auto}
+
+/* Color preview */
+.preview-area{display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:32px}
+.color-preview{width:200px;height:200px;border-radius:12px;border:1px solid var(--border);
+box-shadow:0 4px 16px rgba(0,0,0,.08);cursor:pointer;position:relative;transition:box-shadow .15s ease}
+.color-preview:hover{box-shadow:0 6px 24px rgba(0,0,0,.12)}
+.color-preview input[type="color"]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.color-name{font-family:'Lora',serif;font-size:14px;color:var(--muted);min-height:20px}
+
+/* Recent colors */
+.recent-colors{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:32px;min-height:28px}
+.recent-swatch{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);cursor:pointer;
+transition:transform .15s ease}
+.recent-swatch:hover{transform:scale(1.15)}
+
+/* Field rows */
+.field-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.field-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:var(--muted);
+text-transform:uppercase;letter-spacing:.05em;width:48px;flex-shrink:0}
+.field-inputs{display:flex;gap:4px;flex:1}
+.field-input{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:500;
+background:var(--bg);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-input);
+padding:8px 12px;outline:none;transition:border-color .15s ease}
+.field-input:focus{border-color:var(--accent)}
+.field-input.num{width:60px;text-align:center;padding:8px 4px}
+.field-input.hex{flex:1}
+.field-input.css-val{flex:1}
+.field-input[readonly]{opacity:.7}
+.copy-btn{width:32px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-input);
+cursor:pointer;font-size:14px;transition:all .15s ease;color:var(--text)}
+.copy-btn:hover{border-color:var(--accent)}
+.copy-btn.copied{color:#22c55e}
+.css-select{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
+background:var(--surface);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-input);
+padding:8px 6px;cursor:pointer;outline:none;width:70px;flex-shrink:0}
+
+/* Harmonies */
+.section-label{font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500;color:var(--muted);
+text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;margin-top:32px}
+.harmony-tabs{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px}
+.harmony-tab{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:500;
+padding:6px 12px;border-radius:var(--radius-btn);border:1px solid var(--border);
+background:var(--surface);color:var(--muted);cursor:pointer;transition:all .15s ease;white-space:nowrap}
+.harmony-tab:hover,.harmony-tab.active{border-color:var(--accent);color:var(--accent);background:var(--bg)}
+.harmony-swatches{display:flex;gap:12px;flex-wrap:wrap}
+.harmony-swatch{width:50px;height:50px;border-radius:50%;border:2px solid var(--border);
+cursor:pointer;transition:transform .15s ease;position:relative}
+.harmony-swatch:hover{transform:scale(1.12)}
+.harmony-swatch .tooltip{display:none;position:absolute;bottom:-28px;left:50%;transform:translateX(-50%);
+font-size:11px;font-weight:500;background:var(--surface);border:1px solid var(--border);
+border-radius:4px;padding:2px 6px;white-space:nowrap;color:var(--text);pointer-events:none}
+.harmony-swatch:hover .tooltip{display:block}
+
+/* Contrast checker */
+.contrast-section{margin-top:32px;padding:20px;background:var(--surface);border-radius:var(--radius-card);border:1px solid var(--border)}
+.contrast-colors{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.contrast-swatch{width:48px;height:48px;border-radius:var(--radius-btn);border:2px solid var(--border);cursor:pointer;position:relative}
+.contrast-swatch input[type="color"]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
+.swap-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-input);
+cursor:pointer;font-size:14px;transition:all .15s ease;color:var(--text)}
+.swap-btn:hover{border-color:var(--accent)}
+.contrast-ratio{font-family:'DM Sans',sans-serif;font-size:24px;font-weight:600;color:var(--text);margin-bottom:8px}
+.contrast-results{display:flex;gap:16px;flex-wrap:wrap}
+.contrast-result{font-size:13px;font-weight:500}
+.contrast-pass{color:#22c55e}
+.contrast-fail{color:#ef4444}
+
+/* Status bar */
+.status-bar{height:32px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;
+border-top:1px solid var(--border);font-size:11px;color:var(--muted);flex-shrink:0}
+
+/* Badge */
+.badge{position:fixed;bottom:40px;right:16px;font-size:11px;color:var(--muted);
+font-family:'DM Sans',sans-serif;z-index:10}
+
+/* Mobile */
+@media(max-width:600px){
+  .color-preview{width:120px;height:120px}
+  .main{padding:20px 16px}
+  .field-row{flex-wrap:wrap}
+  .field-label{width:100%}
+  .field-inputs{width:100%}
+  .harmony-swatches{overflow-x:auto;flex-wrap:nowrap;padding-bottom:8px}
+  .contrast-colors{flex-wrap:wrap}
+  .contrast-results{flex-direction:column}
+  .header{padding:0 16px}
+  .status-bar{padding:0 16px;font-size:10px}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <span class="header-brand">freecolorconvert.app</span>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
+</header>
+
+<main class="main">
+<div class="container">
+
+  <div class="preview-area">
+    <div class="color-preview" id="colorPreview" style="background:#C49A2A">
+      <input type="color" id="nativePicker" value="#C49A2A">
+    </div>
+    <div class="color-name" id="colorName">Closest: goldenrod</div>
+  </div>
+
+  <div class="recent-colors" id="recentColors"></div>
+
+  <!-- HEX -->
+  <div class="field-row">
+    <span class="field-label">HEX</span>
+    <div class="field-inputs">
+      <input type="text" class="field-input hex" id="hexInput" value="#C49A2A" spellcheck="false">
+    </div>
+    <button class="copy-btn" data-copy="hex" title="Copy">📋</button>
+  </div>
+
+  <!-- RGB -->
+  <div class="field-row">
+    <span class="field-label">RGB</span>
+    <div class="field-inputs">
+      <input type="number" class="field-input num" id="rgbR" min="0" max="255" value="196">
+      <input type="number" class="field-input num" id="rgbG" min="0" max="255" value="154">
+      <input type="number" class="field-input num" id="rgbB" min="0" max="255" value="42">
+    </div>
+    <button class="copy-btn" data-copy="rgb" title="Copy">📋</button>
+  </div>
+
+  <!-- HSL -->
+  <div class="field-row">
+    <span class="field-label">HSL</span>
+    <div class="field-inputs">
+      <input type="number" class="field-input num" id="hslH" min="0" max="360" value="44">
+      <input type="number" class="field-input num" id="hslS" min="0" max="100" value="65">
+      <input type="number" class="field-input num" id="hslL" min="0" max="100" value="47">
+    </div>
+    <button class="copy-btn" data-copy="hsl" title="Copy">📋</button>
+  </div>
+
+  <!-- HSV -->
+  <div class="field-row">
+    <span class="field-label">HSV</span>
+    <div class="field-inputs">
+      <input type="number" class="field-input num" id="hsvH" min="0" max="360" value="44">
+      <input type="number" class="field-input num" id="hsvS" min="0" max="100" value="79">
+      <input type="number" class="field-input num" id="hsvV" min="0" max="100" value="77">
+    </div>
+    <button class="copy-btn" data-copy="hsv" title="Copy">📋</button>
+  </div>
+
+  <!-- CMYK -->
+  <div class="field-row">
+    <span class="field-label">CMYK</span>
+    <div class="field-inputs">
+      <input type="number" class="field-input num" id="cmykC" min="0" max="100" value="0">
+      <input type="number" class="field-input num" id="cmykM" min="0" max="100" value="21">
+      <input type="number" class="field-input num" id="cmykY" min="0" max="100" value="79">
+      <input type="number" class="field-input num" id="cmykK" min="0" max="100" value="23">
+    </div>
+    <button class="copy-btn" data-copy="cmyk" title="Copy">📋</button>
+  </div>
+
+  <!-- CSS -->
+  <div class="field-row">
+    <span class="field-label">CSS</span>
+    <div class="field-inputs">
+      <select class="css-select" id="cssFormat">
+        <option value="rgb">rgb()</option>
+        <option value="hsl">hsl()</option>
+        <option value="hex">hex</option>
+      </select>
+      <input type="text" class="field-input css-val" id="cssOutput" readonly value="rgb(196, 154, 42)">
+    </div>
+    <button class="copy-btn" data-copy="css" title="Copy">📋</button>
+  </div>
+
+  <!-- Harmonies -->
+  <div class="section-label">COLOR HARMONIES</div>
+  <div class="harmony-tabs" id="harmonyTabs">
+    <button class="harmony-tab active" data-harmony="complementary">Complementary</button>
+    <button class="harmony-tab" data-harmony="analogous">Analogous</button>
+    <button class="harmony-tab" data-harmony="triadic">Triadic</button>
+    <button class="harmony-tab" data-harmony="split">Split-Complementary</button>
+    <button class="harmony-tab" data-harmony="tetradic">Tetradic</button>
+  </div>
+  <div class="harmony-swatches" id="harmonySwatches"></div>
+
+  <!-- Contrast checker -->
+  <div class="section-label">CONTRAST CHECKER</div>
+  <div class="contrast-section">
+    <div class="contrast-colors">
+      <div class="contrast-swatch" id="contrastFg" style="background:#C49A2A">
+        <input type="color" id="contrastFgPicker" value="#C49A2A">
+      </div>
+      <button class="swap-btn" id="swapContrast" title="Swap">⇄</button>
+      <div class="contrast-swatch" id="contrastBg" style="background:#ffffff">
+        <input type="color" id="contrastBgPicker" value="#ffffff">
+      </div>
+      <span class="contrast-ratio" id="contrastRatio">4.5:1</span>
+    </div>
+    <div class="contrast-results" id="contrastResults"></div>
+  </div>
+
+</div>
+</main>
+
+<footer class="status-bar">
+  <span id="statusLeft">HEX: #C49A2A · RGB: 196, 154, 42</span>
+  <span>All processing happens in your browser</span>
+</footer>
+
+<div class="badge">by <a href="https://freesuite.app" target="_blank" rel="noopener">freesuite.app</a></div>
+
+<script>
+/* ── Theme ── */
+const themeToggle = document.getElementById('themeToggle');
+function setTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('suite_theme', t);
+  themeToggle.textContent = t === 'dark' ? '🌙' : '☀️';
+}
+setTheme(localStorage.getItem('suite_theme') || 'light');
+themeToggle.addEventListener('click', () => {
+  setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+
+/* ── State ── */
+let currentRGB = { r: 196, g: 154, b: 42 };
+let activeHarmony = 'complementary';
+let contrastBgRGB = { r: 255, g: 255, b: 255 };
+
+/* ── Elements ── */
+const $ = id => document.getElementById(id);
+const hexInput = $('hexInput'), nativePicker = $('nativePicker');
+const rgbR = $('rgbR'), rgbG = $('rgbG'), rgbB = $('rgbB');
+const hslH = $('hslH'), hslS = $('hslS'), hslL = $('hslL');
+const hsvH = $('hsvH'), hsvS = $('hsvS'), hsvV = $('hsvV');
+const cmykC = $('cmykC'), cmykM = $('cmykM'), cmykY = $('cmykY'), cmykK = $('cmykK');
+const cssOutput = $('cssOutput'), cssFormat = $('cssFormat');
+const colorPreview = $('colorPreview'), colorName = $('colorName');
+const statusLeft = $('statusLeft');
+
+/* ── Conversion Math ── */
+function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+function round(v) { return Math.round(v); }
+
+function rgbToHex(r, g, b) {
+  return '#' + [r, g, b].map(c => clamp(c, 0, 255).toString(16).padStart(2, '0')).join('');
+}
+
+function hexToRgb(hex) {
+  hex = hex.replace(/^#/, '');
+  if (hex.length === 3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+  if (hex.length !== 6) return null;
+  const n = parseInt(hex, 16);
+  if (isNaN(n)) return null;
+  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = 0, l = (max + min) / 2;
+  if (max !== min) {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+  return { h: round(h * 360), s: round(s * 100), l: round(l * 100) };
+}
+
+function hslToRgb(h, s, l) {
+  h /= 360; s /= 100; l /= 100;
+  if (s === 0) { const v = round(l * 255); return { r: v, g: v, b: v }; }
+  function hue2rgb(p, q, t) {
+    if (t < 0) t += 1; if (t > 1) t -= 1;
+    if (t < 1/6) return p + (q - p) * 6 * t;
+    if (t < 1/2) return q;
+    if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+    return p;
+  }
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+  return {
+    r: round(hue2rgb(p, q, h + 1/3) * 255),
+    g: round(hue2rgb(p, q, h) * 255),
+    b: round(hue2rgb(p, q, h - 1/3) * 255)
+  };
+}
+
+function rgbToHsv(r, g, b) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  let h = 0, s = max === 0 ? 0 : (max - min) / max, v = max;
+  if (max !== min) {
+    const d = max - min;
+    switch (max) {
+      case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+      case g: h = ((b - r) / d + 2) / 6; break;
+      case b: h = ((r - g) / d + 4) / 6; break;
+    }
+  }
+  return { h: round(h * 360), s: round(s * 100), v: round(v * 100) };
+}
+
+function hsvToRgb(h, s, v) {
+  h /= 360; s /= 100; v /= 100;
+  const i = Math.floor(h * 6), f = h * 6 - i;
+  const p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
+  let r, g, b;
+  switch (i % 6) {
+    case 0: r = v; g = t; b = p; break;
+    case 1: r = q; g = v; b = p; break;
+    case 2: r = p; g = v; b = t; break;
+    case 3: r = p; g = q; b = v; break;
+    case 4: r = t; g = p; b = v; break;
+    case 5: r = v; g = p; b = q; break;
+  }
+  return { r: round(r * 255), g: round(g * 255), b: round(b * 255) };
+}
+
+function rgbToCmyk(r, g, b) {
+  const r1 = r / 255, g1 = g / 255, b1 = b / 255;
+  const k = 1 - Math.max(r1, g1, b1);
+  if (k === 1) return { c: 0, m: 0, y: 0, k: 100 };
+  return {
+    c: round((1 - r1 - k) / (1 - k) * 100),
+    m: round((1 - g1 - k) / (1 - k) * 100),
+    y: round((1 - b1 - k) / (1 - k) * 100),
+    k: round(k * 100)
+  };
+}
+
+function cmykToRgb(c, m, y, k) {
+  c /= 100; m /= 100; y /= 100; k /= 100;
+  return {
+    r: round(255 * (1 - c) * (1 - k)),
+    g: round(255 * (1 - m) * (1 - k)),
+    b: round(255 * (1 - y) * (1 - k))
+  };
+}
+
+/* ── WCAG Contrast ── */
+function luminance(r, g, b) {
+  const [rs, gs, bs] = [r, g, b].map(c => {
+    c /= 255;
+    return Math.pow(c, 2.2);
+  });
+  return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs;
+}
+
+function contrastRatio(rgb1, rgb2) {
+  const l1 = luminance(rgb1.r, rgb1.g, rgb1.b);
+  const l2 = luminance(rgb2.r, rgb2.g, rgb2.b);
+  const lighter = Math.max(l1, l2), darker = Math.min(l1, l2);
+  return (lighter + 0.05) / (darker + 0.05);
+}
+
+/* ── CSS Named Colors ── */
+const CSS_COLORS = {
+  aliceblue:[240,248,255],antiquewhite:[250,235,215],aqua:[0,255,255],aquamarine:[127,255,212],
+  azure:[240,255,255],beige:[245,245,220],bisque:[255,228,196],black:[0,0,0],
+  blanchedalmond:[255,235,205],blue:[0,0,255],blueviolet:[138,43,226],brown:[165,42,42],
+  burlywood:[222,184,135],cadetblue:[95,158,160],chartreuse:[127,255,0],chocolate:[210,105,30],
+  coral:[255,127,80],cornflowerblue:[100,149,237],cornsilk:[255,248,220],crimson:[220,20,60],
+  cyan:[0,255,255],darkblue:[0,0,139],darkcyan:[0,139,139],darkgoldenrod:[184,134,11],
+  darkgray:[169,169,169],darkgreen:[0,100,0],darkgrey:[169,169,169],darkkhaki:[189,183,107],
+  darkmagenta:[139,0,139],darkolivegreen:[85,107,47],darkorange:[255,140,0],darkorchid:[153,50,204],
+  darkred:[139,0,0],darksalmon:[233,150,122],darkseagreen:[143,188,143],darkslateblue:[72,61,139],
+  darkslategray:[47,79,79],darkslategrey:[47,79,79],darkturquoise:[0,206,209],darkviolet:[148,0,211],
+  deeppink:[255,20,147],deepskyblue:[0,191,255],dimgray:[105,105,105],dimgrey:[105,105,105],
+  dodgerblue:[30,144,255],firebrick:[178,34,34],floralwhite:[255,250,240],forestgreen:[34,139,34],
+  fuchsia:[255,0,255],gainsboro:[220,220,220],ghostwhite:[248,248,255],gold:[255,215,0],
+  goldenrod:[218,165,32],gray:[128,128,128],green:[0,128,0],greenyellow:[173,255,47],
+  grey:[128,128,128],honeydew:[240,255,240],hotpink:[255,105,180],indianred:[205,92,92],
+  indigo:[75,0,130],ivory:[255,255,240],khaki:[240,230,140],lavender:[230,230,250],
+  lavenderblush:[255,240,245],lawngreen:[124,252,0],lemonchiffon:[255,250,205],lightblue:[173,216,230],
+  lightcoral:[240,128,128],lightcyan:[224,255,255],lightgoldenrodyellow:[250,250,210],
+  lightgray:[211,211,211],lightgreen:[144,238,144],lightgrey:[211,211,211],lightpink:[255,182,193],
+  lightsalmon:[255,160,122],lightseagreen:[32,178,170],lightskyblue:[135,206,250],
+  lightslategray:[119,136,153],lightslategrey:[119,136,153],lightsteelblue:[176,196,222],
+  lightyellow:[255,255,224],lime:[0,255,0],limegreen:[50,205,50],linen:[250,240,230],
+  magenta:[255,0,255],maroon:[128,0,0],mediumaquamarine:[102,205,170],mediumblue:[0,0,205],
+  mediumorchid:[186,85,211],mediumpurple:[147,111,219],mediumseagreen:[60,179,113],
+  mediumslateblue:[123,104,238],mediumspringgreen:[0,250,154],mediumturquoise:[72,209,204],
+  mediumvioletred:[199,21,133],midnightblue:[25,25,112],mintcream:[245,255,250],
+  mistyrose:[255,228,225],moccasin:[255,228,181],navajowhite:[255,222,173],navy:[0,0,128],
+  oldlace:[253,245,230],olive:[128,128,0],olivedrab:[107,142,35],orange:[255,165,0],
+  orangered:[255,69,0],orchid:[218,112,214],palegoldenrod:[238,232,170],palegreen:[152,251,152],
+  paleturquoise:[175,238,238],palevioletred:[219,112,147],papayawhip:[255,239,213],
+  peachpuff:[255,218,185],peru:[205,133,63],pink:[255,192,203],plum:[221,160,221],
+  powderblue:[176,224,230],purple:[128,0,128],rebeccapurple:[102,51,153],red:[255,0,0],
+  rosybrown:[188,143,143],royalblue:[65,105,225],saddlebrown:[139,69,19],salmon:[250,128,114],
+  sandybrown:[244,164,96],seagreen:[46,139,87],seashell:[255,245,238],sienna:[160,82,45],
+  silver:[192,192,192],skyblue:[135,206,235],slateblue:[106,90,205],slategray:[112,128,144],
+  slategrey:[112,128,144],snow:[255,250,250],springgreen:[0,255,127],steelblue:[70,130,180],
+  tan:[210,180,140],teal:[0,128,128],thistle:[216,191,216],tomato:[255,99,71],
+  turquoise:[64,224,208],violet:[238,130,238],wheat:[245,222,179],white:[255,255,255],
+  whitesmoke:[245,245,245],yellow:[255,255,0],yellowgreen:[154,205,50]
+};
+
+function closestColorName(r, g, b) {
+  let best = '', bestDist = Infinity;
+  for (const [name, [cr, cg, cb]] of Object.entries(CSS_COLORS)) {
+    const d = (r - cr) ** 2 + (g - cg) ** 2 + (b - cb) ** 2;
+    if (d < bestDist) { bestDist = d; best = name; }
+  }
+  return { name: best, exact: bestDist === 0 };
+}
+
+/* ── Update UI ── */
+let updating = false;
+function updateFromRGB(source) {
+  if (updating) return;
+  updating = true;
+  const { r, g, b } = currentRGB;
+  const hex = rgbToHex(r, g, b);
+  const hsl = rgbToHsl(r, g, b);
+  const hsv = rgbToHsv(r, g, b);
+  const cmyk = rgbToCmyk(r, g, b);
+
+  if (source !== 'hex') hexInput.value = hex.toUpperCase();
+  if (source !== 'rgb') { rgbR.value = r; rgbG.value = g; rgbB.value = b; }
+  if (source !== 'hsl') { hslH.value = hsl.h; hslS.value = hsl.s; hslL.value = hsl.l; }
+  if (source !== 'hsv') { hsvH.value = hsv.h; hsvS.value = hsv.s; hsvV.value = hsv.v; }
+  if (source !== 'cmyk') { cmykC.value = cmyk.c; cmykM.value = cmyk.m; cmykY.value = cmyk.y; cmykK.value = cmyk.k; }
+
+  colorPreview.style.background = hex;
+  nativePicker.value = hex;
+
+  updateCSSOutput();
+
+  const cn = closestColorName(r, g, b);
+  colorName.textContent = cn.exact ? cn.name : `Closest: ${cn.name}`;
+
+  statusLeft.textContent = `HEX: ${hex.toUpperCase()} · RGB: ${r}, ${g}, ${b}`;
+  window.location.hash = hex.slice(1).toUpperCase();
+
+  updateHarmonies();
+  updateContrast();
+  saveRecent(hex.toUpperCase());
+  updating = false;
+}
+
+function updateCSSOutput() {
+  const { r, g, b } = currentRGB;
+  const fmt = cssFormat.value;
+  if (fmt === 'rgb') cssOutput.value = `rgb(${r}, ${g}, ${b})`;
+  else if (fmt === 'hsl') { const h = rgbToHsl(r, g, b); cssOutput.value = `hsl(${h.h}, ${h.s}%, ${h.l}%)`; }
+  else cssOutput.value = rgbToHex(r, g, b).toUpperCase();
+}
+
+/* ── Input handlers ── */
+hexInput.addEventListener('input', () => {
+  let val = hexInput.value.trim();
+  // Auto-detect pasted formats
+  const rgbMatch = val.match(/^rgb\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)\s*\)$/i);
+  if (rgbMatch) {
+    currentRGB = { r: +rgbMatch[1], g: +rgbMatch[2], b: +rgbMatch[3] };
+    updateFromRGB('hex'); return;
+  }
+  const hslMatch = val.match(/^hsl\(\s*(\d+)\s*,\s*(\d+)%?\s*,\s*(\d+)%?\s*\)$/i);
+  if (hslMatch) {
+    currentRGB = hslToRgb(+hslMatch[1], +hslMatch[2], +hslMatch[3]);
+    updateFromRGB('hex'); return;
+  }
+  // Named color
+  const lower = val.toLowerCase().replace(/^#/, '');
+  if (CSS_COLORS[lower]) {
+    const [r, g, b] = CSS_COLORS[lower];
+    currentRGB = { r, g, b };
+    updateFromRGB('hex'); return;
+  }
+  // Hex
+  const rgb = hexToRgb(val);
+  if (rgb) { currentRGB = rgb; updateFromRGB('hex'); }
+});
+
+[rgbR, rgbG, rgbB].forEach(el => el.addEventListener('input', () => {
+  currentRGB = { r: clamp(+rgbR.value||0,0,255), g: clamp(+rgbG.value||0,0,255), b: clamp(+rgbB.value||0,0,255) };
+  updateFromRGB('rgb');
+}));
+
+[hslH, hslS, hslL].forEach(el => el.addEventListener('input', () => {
+  currentRGB = hslToRgb(clamp(+hslH.value||0,0,360), clamp(+hslS.value||0,0,100), clamp(+hslL.value||0,0,100));
+  updateFromRGB('hsl');
+}));
+
+[hsvH, hsvS, hsvV].forEach(el => el.addEventListener('input', () => {
+  currentRGB = hsvToRgb(clamp(+hsvH.value||0,0,360), clamp(+hsvS.value||0,0,100), clamp(+hsvV.value||0,0,100));
+  updateFromRGB('hsv');
+}));
+
+[cmykC, cmykM, cmykY, cmykK].forEach(el => el.addEventListener('input', () => {
+  currentRGB = cmykToRgb(clamp(+cmykC.value||0,0,100), clamp(+cmykM.value||0,0,100), clamp(+cmykY.value||0,0,100), clamp(+cmykK.value||0,0,100));
+  updateFromRGB('cmyk');
+}));
+
+nativePicker.addEventListener('input', () => {
+  const rgb = hexToRgb(nativePicker.value);
+  if (rgb) { currentRGB = rgb; updateFromRGB('picker'); }
+});
+
+cssFormat.addEventListener('change', updateCSSOutput);
+
+/* ── Copy buttons ── */
+document.querySelectorAll('.copy-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const type = btn.dataset.copy;
+    let text = '';
+    const { r, g, b } = currentRGB;
+    if (type === 'hex') text = hexInput.value;
+    else if (type === 'rgb') text = `${r}, ${g}, ${b}`;
+    else if (type === 'hsl') text = `${hslH.value}, ${hslS.value}%, ${hslL.value}%`;
+    else if (type === 'hsv') text = `${hsvH.value}, ${hsvS.value}%, ${hsvV.value}%`;
+    else if (type === 'cmyk') text = `${cmykC.value}%, ${cmykM.value}%, ${cmykY.value}%, ${cmykK.value}%`;
+    else if (type === 'css') text = cssOutput.value;
+    navigator.clipboard.writeText(text).then(() => {
+      btn.textContent = '✓';
+      btn.classList.add('copied');
+      setTimeout(() => { btn.textContent = '📋'; btn.classList.remove('copied'); }, 1000);
+    });
+  });
+});
+
+/* ── Harmonies ── */
+function getHarmonyOffsets(type) {
+  switch (type) {
+    case 'complementary': return [0, 180];
+    case 'analogous': return [-30, 0, 30];
+    case 'triadic': return [0, 120, 240];
+    case 'split': return [0, 150, 210];
+    case 'tetradic': return [0, 90, 180, 270];
+    default: return [0];
+  }
+}
+
+function updateHarmonies() {
+  const hsl = rgbToHsl(currentRGB.r, currentRGB.g, currentRGB.b);
+  const offsets = getHarmonyOffsets(activeHarmony);
+  const container = $('harmonySwatches');
+  container.innerHTML = '';
+  offsets.forEach(off => {
+    const h = ((hsl.h + off) % 360 + 360) % 360;
+    const rgb = hslToRgb(h, hsl.s, hsl.l);
+    const hex = rgbToHex(rgb.r, rgb.g, rgb.b).toUpperCase();
+    const el = document.createElement('div');
+    el.className = 'harmony-swatch';
+    el.style.background = hex;
+    el.innerHTML = `<span class="tooltip">${hex}</span>`;
+    el.addEventListener('click', () => {
+      currentRGB = rgb;
+      updateFromRGB('harmony');
+    });
+    container.appendChild(el);
+  });
+}
+
+$('harmonyTabs').addEventListener('click', e => {
+  const tab = e.target.closest('.harmony-tab');
+  if (!tab) return;
+  document.querySelectorAll('.harmony-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  activeHarmony = tab.dataset.harmony;
+  updateHarmonies();
+});
+
+/* ── Contrast Checker ── */
+function updateContrast() {
+  const fgHex = rgbToHex(currentRGB.r, currentRGB.g, currentRGB.b);
+  $('contrastFg').style.background = fgHex;
+  $('contrastFgPicker').value = fgHex;
+  const bgHex = rgbToHex(contrastBgRGB.r, contrastBgRGB.g, contrastBgRGB.b);
+  $('contrastBg').style.background = bgHex;
+  $('contrastBgPicker').value = bgHex;
+
+  const ratio = contrastRatio(currentRGB, contrastBgRGB);
+  $('contrastRatio').textContent = ratio.toFixed(1) + ':1';
+
+  const aaNormal = ratio >= 4.5, aaLarge = ratio >= 3, aaaNormal = ratio >= 7, aaaLarge = ratio >= 4.5;
+  $('contrastResults').innerHTML = `
+    <span class="contrast-result ${aaaNormal ? 'contrast-pass' : 'contrast-fail'}">AAA Normal: ${aaaNormal ? '✓' : '✗'}</span>
+    <span class="contrast-result ${aaNormal ? 'contrast-pass' : 'contrast-fail'}">AA Normal: ${aaNormal ? '✓' : '✗'}</span>
+    <span class="contrast-result ${aaaLarge ? 'contrast-pass' : 'contrast-fail'}">AAA Large: ${aaaLarge ? '✓' : '✗'}</span>
+    <span class="contrast-result ${aaLarge ? 'contrast-pass' : 'contrast-fail'}">AA Large: ${aaLarge ? '✓' : '✗'}</span>
+  `;
+}
+
+$('contrastBgPicker').addEventListener('input', e => {
+  contrastBgRGB = hexToRgb(e.target.value);
+  updateContrast();
+});
+
+$('swapContrast').addEventListener('click', () => {
+  const tmp = { ...currentRGB };
+  currentRGB = { ...contrastBgRGB };
+  contrastBgRGB = tmp;
+  updateFromRGB('contrast');
+});
+
+/* ── Recent Colors ── */
+function getRecent() {
+  try { return JSON.parse(localStorage.getItem('recent_colors') || '[]'); } catch { return []; }
+}
+function saveRecent(hex) {
+  let recent = getRecent().filter(c => c !== hex);
+  recent.unshift(hex);
+  recent = recent.slice(0, 10);
+  localStorage.setItem('recent_colors', JSON.stringify(recent));
+  renderRecent();
+}
+function renderRecent() {
+  const container = $('recentColors');
+  container.innerHTML = '';
+  getRecent().forEach(hex => {
+    const el = document.createElement('div');
+    el.className = 'recent-swatch';
+    el.style.background = hex;
+    el.title = hex;
+    el.addEventListener('click', () => {
+      const rgb = hexToRgb(hex);
+      if (rgb) { currentRGB = rgb; updateFromRGB('recent'); }
+    });
+    container.appendChild(el);
+  });
+}
+
+/* ── Init ── */
+function init() {
+  const hash = window.location.hash.replace('#', '');
+  if (hash) {
+    const rgb = hexToRgb(hash);
+    if (rgb) currentRGB = rgb;
+  }
+  renderRecent();
+  updateFromRGB('init');
+}
+
+window.addEventListener('hashchange', () => {
+  const hash = window.location.hash.replace('#', '');
+  const rgb = hexToRgb(hash);
+  if (rgb) { currentRGB = rgb; updateFromRGB('hash'); }
+});
+
+init();
+
+/* ── Service Worker ── */
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>

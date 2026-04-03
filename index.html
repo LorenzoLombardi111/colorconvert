@@ -19,6 +19,7 @@
 <meta name="twitter:title" content="Free Color Converter — HEX to RGB, HSL, CMYK Online">
 <meta name="twitter:description" content="Convert colors between HEX, RGB, HSL, HSV, and CMYK instantly. Free online tool with color harmonies and WCAG contrast checker.">
 <meta name="twitter:image" content="https://freecolorconvert.app/og-image.svg">
+<meta name="theme-color" content="#faf9f6">
 <link rel="manifest" href="/manifest.json">
 <script type="application/ld+json">
 {
@@ -126,7 +127,7 @@ a{color:var(--accent);text-decoration:none}
 .header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--border);flex-shrink:0}
 .header-brand{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;color:var(--accent)}
 .theme-toggle{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-btn);
-width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+width:44px;height:44px;cursor:pointer;display:flex;align-items:center;justify-content:center;
 font-size:16px;color:var(--text);transition:all .15s ease}
 .theme-toggle:hover{border-color:var(--accent)}
 
@@ -145,7 +146,8 @@ box-shadow:0 4px 16px rgba(0,0,0,.08);cursor:pointer;position:relative;transitio
 /* Recent colors */
 .recent-colors{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-bottom:32px;min-height:28px}
 .recent-swatch{width:28px;height:28px;border-radius:6px;border:1px solid var(--border);cursor:pointer;
-transition:transform .15s ease}
+transition:transform .15s ease;position:relative}
+.recent-swatch::after{content:'';position:absolute;inset:-8px;}
 .recent-swatch:hover{transform:scale(1.15)}
 
 /* Field rows */
@@ -161,7 +163,7 @@ padding:8px 12px;outline:none;transition:border-color .15s ease}
 .field-input.hex{flex:1}
 .field-input.css-val{flex:1}
 .field-input[readonly]{opacity:.7}
-.copy-btn{width:32px;height:36px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
+.copy-btn{width:44px;height:44px;flex-shrink:0;display:flex;align-items:center;justify-content:center;
 background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-input);
 cursor:pointer;font-size:14px;transition:all .15s ease;color:var(--text)}
 .copy-btn:hover{border-color:var(--accent)}
@@ -192,7 +194,7 @@ border-radius:4px;padding:2px 6px;white-space:nowrap;color:var(--text);pointer-e
 .contrast-colors{display:flex;align-items:center;gap:12px;margin-bottom:16px}
 .contrast-swatch{width:48px;height:48px;border-radius:var(--radius-btn);border:2px solid var(--border);cursor:pointer;position:relative}
 .contrast-swatch input[type="color"]{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}
-.swap-btn{width:32px;height:32px;display:flex;align-items:center;justify-content:center;
+.swap-btn{width:44px;height:44px;display:flex;align-items:center;justify-content:center;
 background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-input);
 cursor:pointer;font-size:14px;transition:all .15s ease;color:var(--text)}
 .swap-btn:hover{border-color:var(--accent)}

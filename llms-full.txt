@@ -1,0 +1,137 @@
+# freecolorconvert.app — Full Documentation
+
+> Free online color converter supporting HEX, RGB, HSL, HSV/HSB, and CMYK formats with color harmonies, WCAG contrast checking, and named color detection.
+
+## About
+
+freecolorconvert.app is a free, client-side color conversion tool built as a single HTML page with inline CSS and JavaScript. All processing happens in the browser — no data is sent to any server. The tool works offline after the first visit via a service worker.
+
+## Features
+
+- Bidirectional, instant conversion between HEX, RGB, HSL, HSV/HSB, and CMYK
+- CSS output in rgb(), hsl(), or hex format with dropdown selector
+- Native browser color picker (click the preview square)
+- Color harmonies: Complementary (+180°), Analogous (-30°/0°/+30°), Triadic (0°/+120°/+240°), Split-Complementary (+150°/+210°), Tetradic (0°/+90°/+180°/+270°)
+- WCAG 2.1 contrast ratio checker with AA/AAA ratings for normal and large text
+- Nearest CSS named color detection (all 148 CSS named colors)
+- Recent color history (last 10, stored in localStorage)
+- Auto-detect pasted formats: hex, rgb(), hsl(), named CSS colors
+- URL hash support for sharing colors (e.g. freecolorconvert.app/#C49A2A)
+- Dark mode with localStorage persistence (key: suite_theme)
+- Offline support via service worker (cache: colorconvert-v1)
+- Fully responsive mobile layout
+
+## Pages
+
+### Home — https://freecolorconvert.app/
+The main color converter application. Supports all six color formats with bidirectional conversion, color harmonies, WCAG contrast checking, and recent color history.
+
+### HEX to RGB — https://freecolorconvert.app/hex-to-rgb
+Guide to converting HEX color codes to RGB values. Includes the conversion formula, a reference table of 20 common colors (red, blue, green, white, black, orange, purple, pink, cyan, magenta, gold, silver, navy, maroon, olive, teal, coral, salmon, turquoise, indigo), and when to use each format.
+
+### RGB to HEX — https://freecolorconvert.app/rgb-to-hex
+Guide to converting RGB values to HEX color codes. Includes the reverse formula, the same 20-color reference table, and why hex is the standard for web development.
+
+### HEX to HSL — https://freecolorconvert.app/hex-to-hsl
+Guide to converting HEX codes to HSL (Hue, Saturation, Lightness). Explains why HSL is more intuitive for designers, includes the two-step conversion formula (HEX → RGB → HSL), and a 20-color reference table with HSL values.
+
+### Contrast Checker — https://freecolorconvert.app/color-contrast-checker
+WCAG color contrast checker guide. Explains WCAG 2.1 contrast requirements, AA vs AAA standards, how the contrast ratio is calculated using relative luminance, common contrast mistakes, and how to fix low-contrast combinations.
+
+### Color Harmonies — https://freecolorconvert.app/color-harmonies
+Color harmony generator guide. Explains all five harmony types (complementary, analogous, triadic, split-complementary, tetradic) with visual examples, when to use each type, and the 60-30-10 rule for color balance.
+
+## Supported Color Formats
+
+### HEX
+- Format: #RRGGBB or #RGB (3-digit shorthand)
+- Example: #C49A2A
+- Range: 00-FF per channel (0-255 decimal)
+
+### RGB
+- Format: R, G, B integers
+- Example: 196, 154, 42
+- Range: 0-255 per channel
+
+### HSL
+- Format: H°, S%, L%
+- Example: 44°, 65%, 47%
+- H: 0-360 (degrees on color wheel), S: 0-100%, L: 0-100%
+
+### HSV/HSB
+- Format: H°, S%, V%
+- Example: 44°, 79%, 77%
+- H: 0-360, S: 0-100%, V: 0-100%
+- Note: HSV (Value) is the same as HSB (Brightness)
+
+### CMYK
+- Format: C%, M%, Y%, K%
+- Example: 0%, 21%, 79%, 23%
+- Range: 0-100% per channel
+- Used for print production
+
+## Conversion Formulas
+
+### HEX ↔ RGB
+HEX → RGB: Parse each two-character hex pair to decimal (0-255).
+RGB → HEX: Convert each channel to two-digit hex, concatenate with # prefix.
+
+### RGB → HSL
+1. Normalize R, G, B to 0-1 range
+2. Find max and min channel values
+3. L = (max + min) / 2
+4. If max == min: H = 0, S = 0 (achromatic)
+5. Else: d = max - min
+   - S = L > 0.5 ? d / (2 - max - min) : d / (max + min)
+   - H depends on which channel is max:
+     - R max: H = (G - B) / d + (G < B ? 6 : 0)
+     - G max: H = (B - R) / d + 2
+     - B max: H = (R - G) / d + 4
+   - H = H * 60 (convert to degrees)
+
+### HSL → RGB
+Standard algorithm using hue2rgb helper function with p, q, and hue segment calculation.
+
+### RGB → HSV
+1. Same max/min calculation as HSL
+2. V = max
+3. S = max == 0 ? 0 : (max - min) / max
+4. H calculated the same way as HSL
+
+### RGB → CMYK
+1. K = 1 - max(R/255, G/255, B/255)
+2. If K == 1: C = M = Y = 0
+3. Else:
+   - C = (1 - R/255 - K) / (1 - K)
+   - M = (1 - G/255 - K) / (1 - K)
+   - Y = (1 - B/255 - K) / (1 - K)
+4. Express all as percentages (0-100%)
+
+### WCAG Contrast Ratio
+1. Relative luminance: L = 0.2126 × R' + 0.7152 × G' + 0.0722 × B'
+   where R' = (R/255)^2.2 (simplified gamma correction)
+2. Contrast ratio = (L_lighter + 0.05) / (L_darker + 0.05)
+3. AA: ≥ 4.5:1 normal text, ≥ 3:1 large text
+4. AAA: ≥ 7:1 normal text, ≥ 4.5:1 large text
+
+## Color Harmonies (HSL Hue Rotation)
+
+- Complementary: base, base + 180°
+- Analogous: base - 30°, base, base + 30°
+- Triadic: base, base + 120°, base + 240°
+- Split-Complementary: base, base + 150°, base + 210°
+- Tetradic: base, base + 90°, base + 180°, base + 270°
+
+## Technical Details
+
+- Single HTML file with inline CSS and JavaScript
+- No build step, no dependencies, no frameworks
+- Fonts: DM Sans (UI), Lora (body) via Google Fonts
+- Dark mode via data-theme attribute and CSS custom properties
+- localStorage keys: suite_theme (theme), recent_colors (history)
+- Service worker: sw.js, cache-first strategy, cache name colorconvert-v1
+- PWA: manifest.json with standalone display mode
+
+## URL
+
+https://freecolorconvert.app/

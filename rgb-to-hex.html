@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Convert RGB to HEX — Free Color Converter | freecolorconvert.app</title>
+<meta name="description" content="Convert RGB color values to HEX codes instantly. Free online tool with formula, 20-color reference table, and one-click copy.">
+<link rel="canonical" href="https://freecolorconvert.app/rgb-to-hex">
+<meta property="og:title" content="Convert RGB to HEX — Free Color Converter">
+<meta property="og:description" content="Convert RGB color values to HEX codes instantly. Free online tool with formula, reference table, and one-click copy.">
+<meta property="og:image" content="https://freecolorconvert.app/og-image.svg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://freecolorconvert.app/rgb-to-hex">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="freecolorconvert.app">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Convert RGB to HEX — Free Color Converter">
+<meta name="twitter:description" content="Convert RGB color values to HEX codes instantly. Free online tool with formula, reference table, and one-click copy.">
+<meta name="twitter:image" content="https://freecolorconvert.app/og-image.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Lora:wght@400;500&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Article",
+      "headline": "Convert RGB to HEX — Free Color Converter",
+      "description": "Learn how to convert RGB values to HEX color codes with formula, reference table, and free online tool.",
+      "datePublished": "2026-04-02",
+      "dateModified": "2026-04-02",
+      "author": {"@type": "Organization", "name": "freecolorconvert.app", "url": "https://freecolorconvert.app/"},
+      "publisher": {"@type": "Organization", "name": "freecolorconvert.app", "url": "https://freecolorconvert.app/"}
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "freecolorconvert.app",
+      "url": "https://freecolorconvert.app/",
+      "applicationCategory": "UtilitiesApplication",
+      "operatingSystem": "Any",
+      "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "How do I convert RGB to hex?", "acceptedAnswer": {"@type": "Answer", "text": "Take each RGB channel value (0-255) and convert it to a two-digit hexadecimal number. Concatenate the three hex pairs with a # prefix. For example, rgb(255, 0, 0) becomes #FF0000."}},
+        {"@type": "Question", "name": "What is rgb(255,0,0) in hex?", "acceptedAnswer": {"@type": "Answer", "text": "rgb(255, 0, 0) in hex is #FF0000, which is pure red. 255 in decimal equals FF in hexadecimal, and 0 equals 00."}},
+        {"@type": "Question", "name": "Why use hex instead of RGB?", "acceptedAnswer": {"@type": "Answer", "text": "Hex codes are more compact (6 characters vs 3 numbers), widely used in CSS and design tools, and easy to copy-paste. They are the standard in brand guidelines and web stylesheets. RGB is better for programmatic color manipulation."}}
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://freecolorconvert.app/"},
+        {"@type": "ListItem", "position": 2, "name": "RGB to HEX", "item": "https://freecolorconvert.app/rgb-to-hex"}
+      ]
+    }
+  ]
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#faf9f6;--surface:#f4f2ee;--border:#e8e4dd;--text:#1a1917;--muted:#7a7668;--accent:#C49A2A;--radius-input:6px;--radius-btn:8px;--radius-card:10px}
+[data-theme="dark"]{--bg:#141412;--surface:#1e1c1a;--border:#2e2b27;--text:#f0ede8;--muted:#8a8578;--accent:#D4A835}
+html{height:100%}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);transition:background .15s ease,color .15s ease}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+.header{height:52px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;border-bottom:1px solid var(--border)}
+.header-brand{font-size:15px;font-weight:600;color:var(--accent)}
+.theme-toggle{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-btn);width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:var(--text);transition:all .15s ease}
+.theme-toggle:hover{border-color:var(--accent)}
+.wrap{max-width:760px;margin:0 auto;padding:48px 24px 32px}
+.breadcrumb{font-size:12px;color:var(--muted);margin-bottom:24px}.breadcrumb a{color:var(--muted)}.breadcrumb a:hover{color:var(--accent)}
+.date{font-size:12px;color:var(--muted);margin-bottom:32px}
+h1{font-family:'Lora',serif;font-size:28px;font-weight:500;color:var(--text);margin-bottom:12px;line-height:1.3}
+h2{font-family:'DM Sans',sans-serif;font-size:18px;font-weight:600;color:var(--text);margin:32px 0 12px;line-height:1.4}
+p{font-family:'Lora',serif;font-size:15px;line-height:1.7;color:var(--muted);margin-bottom:16px}
+.table-wrap{overflow-x:auto;margin:24px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;font-family:'DM Sans',sans-serif}
+th{text-align:left;padding:10px 12px;background:var(--surface);border:1px solid var(--border);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+td{padding:10px 12px;border:1px solid var(--border);color:var(--text)}
+td .swatch{display:inline-block;width:20px;height:20px;border-radius:4px;vertical-align:middle;margin-right:8px;border:1px solid var(--border)}
+.faq{margin-top:32px}.faq-label{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px}
+details{border:1px solid var(--border);border-radius:var(--radius-card);margin-bottom:8px;background:var(--surface);transition:all .15s ease}
+details[open]{background:var(--bg)}
+summary{font-size:14px;font-weight:500;padding:12px 16px;cursor:pointer;color:var(--text);list-style:none}
+summary::-webkit-details-marker{display:none}summary::before{content:'+ ';color:var(--accent);font-weight:600}details[open] summary::before{content:'− '}
+details p{padding:0 16px 12px;margin:0;font-size:14px}
+.cta{display:inline-block;margin:32px 0;padding:12px 24px;background:var(--accent);color:#fff;border-radius:var(--radius-btn);font-weight:600;font-size:14px;transition:opacity .15s ease}.cta:hover{opacity:.85;text-decoration:none}
+.related{margin-top:32px;padding-top:24px;border-top:1px solid var(--border)}
+.related-label{font-size:11px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px}
+.related-links{display:flex;flex-wrap:wrap;gap:8px}
+.related-links a{font-size:13px;padding:6px 12px;border:1px solid var(--border);border-radius:var(--radius-btn);color:var(--text);background:var(--surface);transition:all .15s ease}
+.related-links a:hover{border-color:var(--accent);color:var(--accent);text-decoration:none}
+.seo-footer{padding:32px 0;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12px;color:var(--muted)}
+.badge{position:fixed;bottom:16px;right:16px;font-size:11px;color:var(--muted);z-index:10}
+@media(max-width:600px){.wrap{padding:32px 16px}h1{font-size:22px}table{font-size:12px}td,th{padding:8px}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <a href="/" class="header-brand">freecolorconvert.app</a>
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">☀️</button>
+</header>
+
+<div class="wrap">
+
+<nav class="breadcrumb"><a href="/">Home</a> / RGB to HEX</nav>
+<div class="date">Updated April 2, 2026</div>
+
+<h1>Convert RGB to HEX — Free Color Converter</h1>
+
+<p>RGB (Red, Green, Blue) defines colors using three decimal values from 0 to 255, one for each color channel. HEX encodes the same information as a compact six-character hexadecimal string. Converting RGB to HEX is essential for web development — CSS stylesheets, brand guidelines, and design handoffs almost always use hex codes. While rgb() is valid CSS, hex codes are shorter, universally supported, and easier to share in documentation and design specs.</p>
+
+<h2>The RGB to HEX Formula</h2>
+
+<p>To convert RGB to HEX, take each channel value (0-255) and convert it to a two-digit hexadecimal number. If the hex result is a single digit, pad it with a leading zero. Then concatenate all three with a # prefix. For example, <strong>rgb(196, 154, 42)</strong>: 196 in hex is <strong>C4</strong>, 154 is <strong>9A</strong>, and 42 is <strong>2A</strong>. The result is <strong>#C49A2A</strong>. In JavaScript, you can use <code>value.toString(16).padStart(2, '0')</code> for each channel.</p>
+
+<h2>Reference Table: 20 Common Colors</h2>
+
+<div class="table-wrap">
+<table>
+<thead><tr><th>Color</th><th>RGB</th><th>HEX</th></tr></thead>
+<tbody>
+<tr><td><span class="swatch" style="background:#FF0000"></span>Red</td><td>255, 0, 0</td><td>#FF0000</td></tr>
+<tr><td><span class="swatch" style="background:#0000FF"></span>Blue</td><td>0, 0, 255</td><td>#0000FF</td></tr>
+<tr><td><span class="swatch" style="background:#008000"></span>Green</td><td>0, 128, 0</td><td>#008000</td></tr>
+<tr><td><span class="swatch" style="background:#FFFFFF;border-color:#ccc"></span>White</td><td>255, 255, 255</td><td>#FFFFFF</td></tr>
+<tr><td><span class="swatch" style="background:#000000"></span>Black</td><td>0, 0, 0</td><td>#000000</td></tr>
+<tr><td><span class="swatch" style="background:#FFA500"></span>Orange</td><td>255, 165, 0</td><td>#FFA500</td></tr>
+<tr><td><span class="swatch" style="background:#800080"></span>Purple</td><td>128, 0, 128</td><td>#800080</td></tr>
+<tr><td><span class="swatch" style="background:#FFC0CB"></span>Pink</td><td>255, 192, 203</td><td>#FFC0CB</td></tr>
+<tr><td><span class="swatch" style="background:#00FFFF"></span>Cyan</td><td>0, 255, 255</td><td>#00FFFF</td></tr>
+<tr><td><span class="swatch" style="background:#FF00FF"></span>Magenta</td><td>255, 0, 255</td><td>#FF00FF</td></tr>
+<tr><td><span class="swatch" style="background:#FFD700"></span>Gold</td><td>255, 215, 0</td><td>#FFD700</td></tr>
+<tr><td><span class="swatch" style="background:#C0C0C0"></span>Silver</td><td>192, 192, 192</td><td>#C0C0C0</td></tr>
+<tr><td><span class="swatch" style="background:#000080"></span>Navy</td><td>0, 0, 128</td><td>#000080</td></tr>
+<tr><td><span class="swatch" style="background:#800000"></span>Maroon</td><td>128, 0, 0</td><td>#800000</td></tr>
+<tr><td><span class="swatch" style="background:#808000"></span>Olive</td><td>128, 128, 0</td><td>#808000</td></tr>
+<tr><td><span class="swatch" style="background:#008080"></span>Teal</td><td>0, 128, 128</td><td>#008080</td></tr>
+<tr><td><span class="swatch" style="background:#FF7F50"></span>Coral</td><td>255, 127, 80</td><td>#FF7F50</td></tr>
+<tr><td><span class="swatch" style="background:#FA8072"></span>Salmon</td><td>250, 128, 114</td><td>#FA8072</td></tr>
+<tr><td><span class="swatch" style="background:#40E0D0"></span>Turquoise</td><td>64, 224, 208</td><td>#40E0D0</td></tr>
+<tr><td><span class="swatch" style="background:#4B0082"></span>Indigo</td><td>75, 0, 130</td><td>#4B0082</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>Why HEX Is Used in Web Development</h2>
+
+<p>Hex color codes became the web standard because they are compact, unambiguous, and easy to copy. A hex code like #FF6600 fits neatly into CSS declarations, Figma fields, and Slack messages. Designers share hex codes in brand guides because they are a single string with no spaces or parentheses. RGB is more practical when you need to calculate colors dynamically — interpolating between colors, adjusting brightness, or generating color palettes in code. Modern CSS supports both, plus hsl(), so you can choose the format that best fits your workflow. For transparency, use 8-digit hex (#FF660080) or rgba().</p>
+
+<div class="faq">
+<div class="faq-label">Frequently Asked Questions</div>
+
+<details>
+<summary>How do I convert RGB to hex?</summary>
+<p>Take each RGB channel value (0-255) and convert it to a two-digit hexadecimal number. Concatenate the three hex pairs with a # prefix. For example, rgb(255, 0, 0) becomes #FF0000. You can use our converter for instant, accurate results.</p>
+</details>
+
+<details>
+<summary>What is rgb(255,0,0) in hex?</summary>
+<p>rgb(255, 0, 0) in hex is #FF0000, which is pure red. 255 in decimal equals FF in hexadecimal (15 &times; 16 + 15 = 255), and 0 equals 00.</p>
+</details>
+
+<details>
+<summary>Why use hex instead of RGB?</summary>
+<p>Hex codes are more compact (6 characters vs. three separate numbers), widely used in CSS and design tools, and easy to copy-paste as a single string. They are the standard format in brand guidelines and web stylesheets. RGB is better suited for programmatic color manipulation where you need to work with individual channel values.</p>
+</details>
+</div>
+
+<a href="/" class="cta">Open Color Converter</a>
+
+<div class="related">
+<div class="related-label">Related Tools</div>
+<div class="related-links">
+<a href="/hex-to-rgb">HEX to RGB</a>
+<a href="/hex-to-hsl">HEX to HSL</a>
+<a href="/color-contrast-checker">Contrast Checker</a>
+<a href="/color-harmonies">Color Harmonies</a>
+</div>
+</div>
+
+<footer class="seo-footer">
+<span>&copy; freecolorconvert.app</span>
+</footer>
+
+</div>
+
+<div class="badge">by <a href="https://freesuite.app" target="_blank" rel="noopener">freesuite.app</a></div>
+
+<script>
+(function(){
+  const t=document.getElementById('themeToggle');
+  const saved=localStorage.getItem('suite_theme');
+  if(saved==='dark')document.documentElement.setAttribute('data-theme','dark');
+  function update(){const d=document.documentElement.getAttribute('data-theme')==='dark';t.textContent=d?'🌙':'☀️'}
+  update();
+  t.addEventListener('click',()=>{
+    const isDark=document.documentElement.getAttribute('data-theme')==='dark';
+    document.documentElement.setAttribute('data-theme',isDark?'light':'dark');
+    localStorage.setItem('suite_theme',isDark?'light':'dark');
+    update();
+  });
+})();
+</script>
+</body>
+</html>

@@ -21,6 +21,15 @@ freecolorconvert.app is a free, client-side color conversion tool. All processin
 - Offline support via service worker
 - Fully responsive mobile layout
 
+## Pages
+
+- [Home](https://freecolorconvert.app/) — Full color converter app
+- [HEX to RGB](https://freecolorconvert.app/hex-to-rgb) — Convert HEX color codes to RGB values
+- [RGB to HEX](https://freecolorconvert.app/rgb-to-hex) — Convert RGB values to HEX color codes
+- [HEX to HSL](https://freecolorconvert.app/hex-to-hsl) — Convert HEX color codes to HSL values
+- [Contrast Checker](https://freecolorconvert.app/color-contrast-checker) — WCAG color contrast checker
+- [Color Harmonies](https://freecolorconvert.app/color-harmonies) — Color harmony generator
+
 ## Supported Color Formats
 
 - **HEX**: #C49A2A (3 or 6 digit)
@@ -29,14 +38,10 @@ freecolorconvert.app is a free, client-side color conversion tool. All processin
 - **HSV/HSB**: H 0-360°, S 0-100%, V 0-100%
 - **CMYK**: C 0-100%, M 0-100%, Y 0-100%, K 0-100%
 
-## Conversion Formulas
-
-HEX ↔ RGB: Direct hexadecimal to decimal conversion.
-RGB → HSL: Normalize to 0-1, compute max/min, derive H from dominant channel, S from delta/sum, L from midpoint.
-RGB → HSV: Same hue calculation, V = max, S = delta/max.
-RGB → CMYK: K = 1 - max(R',G',B'), then C/M/Y from (1-channel-K)/(1-K).
-WCAG Luminance: L = 0.2126·R' + 0.7152·G' + 0.0722·B' with gamma 2.2. Ratio = (L1+0.05)/(L2+0.05).
-
 ## URL
 
 https://freecolorconvert.app/
+
+## Optional
+
+- [llms-full.txt](https://freecolorconvert.app/llms-full.txt) — Detailed documentation including conversion formulas
